@@ -327,7 +327,7 @@ public class RequestHandler {
 		executeCommandProcess.unzip(dockeroutput+"iviaDeployment_"+TIME+".zip",iviadeploy);
 		List<String> commands=new  ArrayList<String>(); 		
 		//commands.add(" start --driver=docker --network minikube");
-		commands.add("");
+		commands.add("chmod 777 ");
 		commands.add("");
 		commands.add(dockeroutput+"/common/create-ldap-and-postgres-isvaop-keys.sh");
 		commands.add(minikubeoutput+"create-secrets.sh");
@@ -335,6 +335,20 @@ public class RequestHandler {
 		commands.add("minikube addons enable metrics-server");	
 	//	commands.add("minikube dashboard  --url");	
 		
+	
+		for (String string : commands) {
+			executeCommandProcess.execCmd(string);
+		}
+	}
+	
+	@RequestMapping(value="/clean", method=RequestMethod.GET)
+	public void cleanConfig(Model m,HttpSession sesion,HttpServletRequest request,            HttpServletResponse response) throws Exception {
+		log.info("executeConfig commonconfpage()");
+		executeCommandProcess.unzip(dockeroutput+"iviaDeployment_"+TIME+".zip",iviadeploy);
+		List<String> commands=new  ArrayList<String>(); 		
+		//commands.add(" start --driver=docker --network minikube");
+		
+		commands.add(minikubeoutput+"clean.sh");
 	
 		for (String string : commands) {
 			executeCommandProcess.execCmd(string);

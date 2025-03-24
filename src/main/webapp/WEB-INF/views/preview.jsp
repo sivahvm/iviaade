@@ -48,12 +48,14 @@
 
 	<div align="right">
 	
-	<form:form method="GET" action="/iviacontainerdep/executeConfig"
-					commandName="rplistconf">
-<div id="submitbottonid">
-			<input type="submit" id="submit_button"  class="button-click" value="Deploy and Test" />
-		</div>
-				</form:form>
+		<i style="text-align: center; padding-left: 10px"> <b>
+    <a class="linnk_button" href='<c:url value="/clean"/>'>Clean</a>    
+ 		</b></i>
+ 		
+ 			<i style="text-align: center; padding-left: 10px"> <b>
+    <a class="linnk_button" href='<c:url value="/executeConfig"/>'>Clean</a>    
+ 		</b></i>
+ 	
 				
 
 	</div>	
