@@ -338,7 +338,7 @@ public class RequestHandler {
 	@RequestMapping(value="/getConfig", method=RequestMethod.GET)
 	public void createConfig(Model m,HttpSession sesion,HttpServletRequest request,            HttpServletResponse response) throws Exception {
 		log.info("Update env File commonconfpage()");
-		String fileName=minikubeoutput+"ivia-minikube.yml";
+		String fileName=minikubeoutput+"ivia-minikube.yaml";
 		prepareFiles.writeFileContent(fileName);
 		
 		prepareFiles.writeFileCleanContent(minikubeoutput+"cleanup.sh",regress);
