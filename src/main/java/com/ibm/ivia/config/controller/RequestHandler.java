@@ -321,11 +321,13 @@ public class RequestHandler {
 		
 		List<String> commands=new  ArrayList<String>(); 
 		
-		commands.add(" start --driver=docker --network minikube");
+		//commands.add(" start --driver=docker --network minikube");
 		commands.add(minikubeoutput+"/create-secrets.sh");
 		commands.add(minikubeoutput+"/ivia-minikube.yaml");		
-		executeCommandProcess.execCmd("dir");
+		for (String string : commands) {
+			executeCommandProcess.execCmd(string);
 		}
+	}
 	
 	@RequestMapping(value="/getConfig", method=RequestMethod.GET)
 	public void createConfig(Model m,HttpSession sesion,HttpServletRequest request,            HttpServletResponse response) throws Exception {
