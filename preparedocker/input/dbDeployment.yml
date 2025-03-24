@@ -66,7 +66,7 @@ spec:
               value: /var/lib/postgresql/data/db-files/
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: postgresqldata
+              name: __vname__
             - mountPath: /var/local
               name: postgresql-keys
 # useful for debugging startup issues - can run bash, then exec to the container and poke around

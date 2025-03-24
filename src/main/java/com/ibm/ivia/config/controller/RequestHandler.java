@@ -327,7 +327,8 @@ public class RequestHandler {
 		executeCommandProcess.unzip(dockeroutput+"iviaDeployment_"+TIME+".zip",iviadeploy);
 		List<String> commands=new  ArrayList<String>(); 		
 		//commands.add(" start --driver=docker --network minikube");
-		
+		commands.add("");
+		commands.add("");
 		commands.add(dockeroutput+"/common/create-ldap-and-postgres-isvaop-keys.sh");
 		commands.add(minikubeoutput+"create-secrets.sh");
 		commands.add("kubectl create -f "+minikubeoutput+"ivia-minikube.yaml");	

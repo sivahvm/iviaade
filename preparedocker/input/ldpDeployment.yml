@@ -99,7 +99,7 @@ spec:
 #          args: [ "-c", "while /bin/true ; do sleep 5; done" ]
 # Just this line to get debug output from openldap startup
 #          args: [ "--loglevel" , "trace","--copy-service"]
-
+---
 apiVersion: v1
 kind: Service
 metadata:

@@ -29,7 +29,7 @@ spec:
             - mountPath: /var/shared
               name: __confvname__
             - mountPath: /var/application.logs
-              name: __cname__-logs
+              name: __aname__-logs
           env:
             - name: INSTANCE
               value: __instance__
