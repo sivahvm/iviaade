@@ -322,7 +322,7 @@ public class RequestHandler {
 		List<String> commands=new  ArrayList<String>(); 
 		
 		//commands.add(" start --driver=docker --network minikube");
-		commands.add(dockeroutput+"/common/create-ldap-and-postgres-isvaop-keys.sh");
+		
 		commands.add(minikubeoutput+"create-secrets.sh");
 		commands.add(minikubeoutput+"ivia-minikube.yaml");		
 		for (String string : commands) {
@@ -342,8 +342,8 @@ public class RequestHandler {
 		log.info("Update env File commonconfpage()");
 		//fileupdate.updateEnvFileData(sesion);		
 		Path sourcepath = (Path)Paths.get(dockeroutput);
-		String dockerZipName=dockerZipPath+"iviaDeployment"+getCurrentTime()+".zip";
-		Path destpath = (Path)Paths.get(dockerZipPath);
+		String dockerZipName=dockeroutput+"iviaDeployment"+getCurrentTime()+".zip";
+		Path destpath = (Path)Paths.get(dockerZipName);
 		fileupdate.zipFolder(sourcepath,destpath);	
         File downloadFile = new File(dockerZipName);
         FileInputStream inputStream = new FileInputStream(downloadFile);
