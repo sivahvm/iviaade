@@ -70,8 +70,10 @@ public class RequestHandler {
 	  private ExecuteCommandProcess  executeCommandProcess;
 
 	@RequestMapping(value={"/lmiConfig"}, method=RequestMethod.GET)
+	
 	public String getForm(Model m) {
 		log.info("Calling IVIA Lmi view()");
+		
 		m.addAttribute("requestConfig", new RequestConfig());		
 
 		return "iviaConfigView";
