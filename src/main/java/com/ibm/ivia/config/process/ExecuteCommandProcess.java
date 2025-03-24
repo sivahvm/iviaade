@@ -86,7 +86,8 @@ public  String execCmd(String cmd) {
 		homeDirectory="/bin/sh -c "+cmd;
 	}
 	
-    
+    log.info("Input:>                     : "+homeDirectory);
+
     
     try (InputStream inputStream = Runtime.getRuntime().exec(homeDirectory).getInputStream();
             Scanner s = new Scanner(inputStream).useDelimiter("\\A")) {
