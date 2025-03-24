@@ -33,7 +33,7 @@ spec:
         - name: __confvname__
           persistentVolumeClaim:
             claimName: __confvname__
-        - name: __confvname__-logs
+        - name: __aname__-logs
           emptyDir: {}
       containers:
         - name: __cname__
