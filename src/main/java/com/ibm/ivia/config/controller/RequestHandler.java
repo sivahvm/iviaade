@@ -38,8 +38,8 @@ import com.ibm.ivia.config.user.UserValidator;
 public class RequestHandler {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
-	//private Validator validator = new UserValidator();
-	//private ConfigValidator confvalidator = new ConfigValidator();
+	private Validator validator = new UserValidator();
+	private ConfigValidator confvalidator = new ConfigValidator();
 	private static final int BUFFER_SIZE = 4096;
 	private static String TIME = "";
 
