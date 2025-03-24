@@ -83,7 +83,7 @@ public  String execCmd(String cmd) {
 		homeDirectory="cmd.exe /c "+cmd;
 		
 	} else {
-		homeDirectory="/bin/sh -c "+cmd;
+		homeDirectory=""+cmd;
 	}
 	
     log.info("Input:>                     : "+homeDirectory);
