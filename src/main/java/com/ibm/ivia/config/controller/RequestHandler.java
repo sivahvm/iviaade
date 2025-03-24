@@ -325,7 +325,11 @@ public class RequestHandler {
 		
 		commands.add(dockeroutput+"/common/create-ldap-and-postgres-isvaop-keys.sh");
 		commands.add(minikubeoutput+"create-secrets.sh");
-		commands.add(minikubeoutput+"ivia-minikube.yaml");		
+		commands.add("kubectl create -f "+minikubeoutput+"ivia-minikube.yaml");	
+		commands.add("minikube addons enable metrics-server");	
+		commands.add("minikube dashboard  --url");	
+		
+	
 		for (String string : commands) {
 			executeCommandProcess.execCmd(string);
 		}
