@@ -326,7 +326,7 @@ public class RequestHandler {
 	@RequestMapping(value="/executeConfig", method=RequestMethod.GET)
 	public void executeConfig(Model m,HttpSession sesion,HttpServletRequest request,            HttpServletResponse response) throws Exception {
 		log.info("executeConfig commonconfpage()");
-		executeCommandProcess.unzip(dockeroutput+"iviaDeployment_"+TIME+".zip",iviadeploy);
+		//executeCommandProcess.unzip(dockeroutput+"iviaDeployment_"+TIME+".zip",iviadeploy);
 		List<String> commands=new  ArrayList<String>(); 		
 		//commands.add(" start --driver=docker --network minikube");
 		commands.add("chmod 777 ");

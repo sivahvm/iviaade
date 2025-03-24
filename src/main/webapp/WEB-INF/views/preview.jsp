@@ -26,7 +26,8 @@
 			</div>
 			<div class="div_backgrndimg">
 				<label class="headlabel"><b>Accelerated Deployment
-						Engine</b></label> <label style="color: #3F91B6"><b> Preview and Download </b></label>
+						Engine</b></label> <label style="color: #3F91B6"><b> Preview and
+						Download </b></label>
 			</div>
 			<div class="ibmlog">
 				<img src="<c:url value="/resources/css/ibm_resize.png"/>"
@@ -37,201 +38,233 @@
 	</div>
 	<br>
 
-<div align="left">
-     	<i style="text-align: center; padding-left: 10px"> <b>
-    <a class="linnk_button" href='<c:url value="/iviaopConfig"/>'>Back</a>    
- 		</b></i>
- 		<i style="text-align: center; padding-left: 10px"> <b>
-	<a class="linnk_button" href='<c:url value="/index"/>'>Home</a>
- 		</b></i>
-    </div>
+	<div align="left">
+		<i style="text-align: center; padding-left: 10px"> <b> <a
+				class="linnk_button" href='<c:url value="/iviaopConfig"/>'>Back</a>
+		</b></i> <i style="text-align: center; padding-left: 10px"> <b> <a
+				class="linnk_button" href='<c:url value="/index"/>'>Home</a>
+		</b></i>
+	</div>
 
 	<div align="right">
-	
-		<i style="text-align: center; padding-left: 10px"> <b>
-    <a class="linnk_button" href='<c:url value="/clean"/>'>Clean</a>    
- 		</b></i>
- 			<i style="text-align: center; padding-left: 10px"> <b>
-    <a class="linnk_button" href='<c:url value="/getConfig"/>'>Deploy</a>    
- 		</b></i>
- 			<i style="text-align: center; padding-left: 10px"> <b>
-    <a class="linnk_button" href='<c:url value="/executeConfig"/>'>Deploy</a>    
- 		</b></i>
+		</b></i> <i style="text-align: center; padding-left: 10px"> <b> <a
+				class="linnk_button" href='<c:url value="/executeConfig"/>'>Gen Config</a>
+		</b></i>
+		<i style="text-align: center; padding-left: 10px"> <b> <a
+				class="linnk_button" href='<c:url value="/clean"/>'>Clean</a>
+		</b></i> <i style="text-align: center; padding-left: 10px"> <b> <a
+				class="linnk_button" href='<c:url value="/getConfig"/>'>Deploy</a>
 
-	</div>	
+	</div>
 
 	<table>
-  <tr style="text-align: center">
-    <td colspan="3" ><b>IVIA Repo Configuration</b> </td> 
- </tr>
- 
-  <tr>
-    <th>Pod Name</th>
-    <th>Repo URL</th>
-    <th>Tag Version</th>
-  </tr>
+		<tr style="text-align: center">
+			<td colspan="3"><b>IVIA Repo Configuration</b></td>
+		</tr>
 
-  <tr>
-    <td><c:out value="${sessionScope.lmiConfigModel.containerName }" /> </td>
-    <td><c:out value="${sessionScope.lmiConfigModel.repoUrl }" /> </td>
-    <td><c:out value="${sessionScope.lmiConfigModel.imageVersion }" /> </td>
-  </tr>
-   <tr>
-    <td><c:out value="${sessionScope.lmiConfigModel.containerBean.containerName }" /> </td>
-    <td><c:out value="${sessionScope.lmiConfigModel.containerBean.repoUrl }" /> </td>
-    <td><c:out value="${sessionScope.lmiConfigModel.containerBean.imageVersion }" /> </td>
-  </tr>
-   <tr>
-    <td><c:out value="${sessionScope.ldapConfigModel.containerName }" /> </td>
-    <td><c:out value="${sessionScope.ldapConfigModel.repoUrl }" /> </td>
-    <td><c:out value="${sessionScope.ldapConfigModel.imageVersion }" /> </td>
-  </tr>
-   <tr>
-    <td><c:out value="${sessionScope.dbConfigModel.containerName }" /> </td>
-    <td><c:out value="${sessionScope.dbConfigModel.repoUrl }" /> </td>
-    <td><c:out value="${sessionScope.dbConfigModel.imageVersion }" /> </td>
-  </tr>
-   <tr>
-    <td>Reverse Proxy  </td>
-    <td><c:out value="${sessionScope.rpListConf.repoUrl }" /> </td>
-    <td><c:out value="${sessionScope.rpListConf.imageVersion }" /> </td>
-  </tr>
-  
-   <tr>
-    <td><c:out value="${sessionScope.iviaopConfigModel.containerName }" /> </td>
-    <td><c:out value="${sessionScope.iviaopConfigModel.repoUrl }" /> </td>
-    <td><c:out value="${sessionScope.iviaopConfigModel.imageVersion }" /> </td>
-  </tr>
-   <tr>
-    <td><c:out value="${sessionScope.iviaopConfigModel.containerBean.containerName }" /> </td>
-    <td><c:out value="${sessionScope.iviaopConfigModel.containerBean.repoUrl }" /> </td>
-    <td><c:out value="${sessionScope.iviaopConfigModel.containerBean.imageVersion }" /> </td>
-  </tr>
-</table>
-<table>
- <tr style="text-align: center">
-    <td colspan="8" align="center"><b><c:out value="Persistent Volume  and network Details" /></b></td> 
- </tr>
- 
-  <tr>
-  	<th>Name : </th>
-  	<th>Time Zone </th>
-    <th>iviaconfig </th>
-    <th>libldap</th>
-    <th>libsecauthority</th>
-    <th>ldapslapd</th>
-    <th>pgdata</th>
+		<tr>
+			<th>Pod Name</th>
+			<th>Repo URL</th>
+			<th>Tag Version</th>
+		</tr>
 
-  </tr>
+		<tr>
+			<td><c:out value="${sessionScope.lmiConfigModel.containerName }" />
+			</td>
+			<td><c:out value="${sessionScope.lmiConfigModel.repoUrl }" /></td>
+			<td><c:out value="${sessionScope.lmiConfigModel.imageVersion }" />
+			</td>
+		</tr>
+		<tr>
+			<td><c:out
+					value="${sessionScope.lmiConfigModel.containerBean.containerName }" />
+			</td>
+			<td><c:out
+					value="${sessionScope.lmiConfigModel.containerBean.repoUrl }" /></td>
+			<td><c:out
+					value="${sessionScope.lmiConfigModel.containerBean.imageVersion }" />
+			</td>
+		</tr>
+		<tr>
+			<td><c:out
+					value="${sessionScope.ldapConfigModel.containerName }" /></td>
+			<td><c:out value="${sessionScope.ldapConfigModel.repoUrl }" />
+			</td>
+			<td><c:out value="${sessionScope.ldapConfigModel.imageVersion }" />
+			</td>
+		</tr>
+		<tr>
+			<td><c:out value="${sessionScope.dbConfigModel.containerName }" />
+			</td>
+			<td><c:out value="${sessionScope.dbConfigModel.repoUrl }" /></td>
+			<td><c:out value="${sessionScope.dbConfigModel.imageVersion }" />
+			</td>
+		</tr>
+		<tr>
+			<td>Reverse Proxy</td>
+			<td><c:out value="${sessionScope.rpListConf.repoUrl }" /></td>
+			<td><c:out value="${sessionScope.rpListConf.imageVersion }" />
+			</td>
+		</tr>
 
-  <tr>
-  	<td><c:out value="Value: " /> </td>
-    <td><c:out value="${sessionScope.lmiConfigModel.timezone }" /> </td>
-    <td><c:out value="${sessionScope.lmiConfigModel.volume }" /> </td>    
-    <td><c:out value="${sessionScope.ldapConfigModel.vlibldap }" /> </td>
-    <td><c:out value="${sessionScope.ldapConfigModel.vlibsecauthority }" /> </td>
-    <td><c:out value="${sessionScope.ldapConfigModel.volume }" /> </td>
-    <td><c:out value="${sessionScope.dbConfigModel.volume }" /> </td>
-  </tr>
- 
-</table>
+		<tr>
+			<td><c:out
+					value="${sessionScope.iviaopConfigModel.containerName }" /></td>
+			<td><c:out value="${sessionScope.iviaopConfigModel.repoUrl }" />
+			</td>
+			<td><c:out
+					value="${sessionScope.iviaopConfigModel.imageVersion }" /></td>
+		</tr>
+		<tr>
+			<td><c:out
+					value="${sessionScope.iviaopConfigModel.containerBean.containerName }" />
+			</td>
+			<td><c:out
+					value="${sessionScope.iviaopConfigModel.containerBean.repoUrl }" />
+			</td>
+			<td><c:out
+					value="${sessionScope.iviaopConfigModel.containerBean.imageVersion }" />
+			</td>
+		</tr>
+	</table>
+	<table>
+		<tr style="text-align: center">
+			<td colspan="8" align="center"><b><c:out
+						value="Persistent Volume  and network Details" /></b></td>
+		</tr>
 
-<table>
- <tr style="text-align: center">
-    <td colspan="4" align="center"><b><c:out value="  LMI Configuration: ${sessionScope.lmiConfigModel.hostname } " /></b></td> 
- </tr>
- 
-  <tr>
-   <th>Container Name</th>
-    <th>Port Number</th>
-    <th>User Name</th>
-    <th>Password</th>
-  </tr>
+		<tr>
+			<th>Name :</th>
+			<th>Time Zone</th>
+			<th>iviaconfig</th>
+			<th>libldap</th>
+			<th>libsecauthority</th>
+			<th>ldapslapd</th>
+			<th>pgdata</th>
 
-  <tr>
-    <td><c:out value="${sessionScope.lmiConfigModel.containerName }" /> </td>
-    <td><c:out value="${sessionScope.lmiConfigModel.port }" /> </td>
-    <td><c:out value="admin" /> </td>
-    <td><c:out value="******" /> </td>
-  </tr>
-  
-</table>
+		</tr>
 
-<table>
- <tr style="text-align: center">
-    <td colspan="6" align="center"><b><c:out value=" LDAP Configuration :  ${sessionScope.ldapConfigModel.podname } " /></b></td> 
- </tr>
- 
-  <tr>
-    <th>Container Name</th>
-    <th>port</th>
-    <th>Domain Name</th>
-    <th>Config User Password</th>
-    <th>Admin User Password</th>
-   
+		<tr>
+			<td><c:out value="Value: " /></td>
+			<td><c:out value="${sessionScope.lmiConfigModel.timezone }" />
+			</td>
+			<td><c:out value="${sessionScope.lmiConfigModel.volume }" /></td>
+			<td><c:out value="${sessionScope.ldapConfigModel.vlibldap }" />
+			</td>
+			<td><c:out
+					value="${sessionScope.ldapConfigModel.vlibsecauthority }" /></td>
+			<td><c:out value="${sessionScope.ldapConfigModel.volume }" /></td>
+			<td><c:out value="${sessionScope.dbConfigModel.volume }" /></td>
+		</tr>
 
-  </tr>
+	</table>
 
-  <tr>
-    <td><c:out value="${sessionScope.ldapConfigModel.containerName }" /> </td>
-    <td><c:out value="${sessionScope.ldapConfigModel.port }" /> </td>
-    <td><c:out value="${sessionScope.ldapConfigModel.domain }" /> </td>
-    <td><c:out value="${sessionScope.ldapConfigModel.confpwd }" /> </td>
-    <td><c:out value="${sessionScope.ldapConfigModel.adminpwd }" /> </td>   
- 
-  </tr>
- 
-</table>
+	<table>
+		<tr style="text-align: center">
+			<td colspan="4" align="center"><b><c:out
+						value="  LMI Configuration: ${sessionScope.lmiConfigModel.hostname } " /></b></td>
+		</tr>
 
-<table>
- <tr style="text-align: center">
-     <td colspan="4" align="center"><b><c:out value=" DB Configuration :  ${sessionScope.dbConfigModel.hostname } " /></b></td> 
- 
- </tr>
- 
-  <tr>
-    <th>Container Name</th>
-    <th>DB Name</th>
-    <th>Instance</th>
-    <th>Port </th>
+		<tr>
+			<th>Container Name</th>
+			<th>Port Number</th>
+			<th>User Name</th>
+			<th>Password</th>
+		</tr>
 
-  </tr>
+		<tr>
+			<td><c:out value="${sessionScope.lmiConfigModel.containerName }" />
+			</td>
+			<td><c:out value="${sessionScope.lmiConfigModel.port }" /></td>
+			<td><c:out value="admin" /></td>
+			<td><c:out value="******" /></td>
+		</tr>
 
-  <tr>
-    <td><c:out value="${sessionScope.dbConfigModel.containerName }" /> </td>
-    <td><c:out value="${sessionScope.dbConfigModel.dbName }" /> </td>
-    <td><c:out value="${sessionScope.dbConfigModel.userName }" /> </td>
-    <td><c:out value="${sessionScope.dbConfigModel.adminpwd }" /> </td>
- 
-  </tr>
- 
-</table>
+	</table>
 
-<table>
- <tr style="text-align: center">
-     <td colspan="5" align="center"><b><c:out value=" RP Configuration  :" /></b></td> 
- 
- </tr>
- 
-  <tr>
-									<th>AppName</th>
-									<th>Servname</th>			
-									<th>Hostname</th>							
-									<th>Port Num</th>
-									<th>Instance Name</th>
-	</tr>
-  
-  <c:forEach var="item" items="${sessionScope.rpListConf.rpConf}" varStatus="status" >   
-   <tr>  
-										<td><c:out value="${item.appName }" /></td>
-										<td><c:out value="${item.hostname }" /></td>
-										<td><c:out value="${item.servname }" /></td>
-										<td><c:out value="${item.port }" /></td>
-										<td><c:out value="${item.instName }" /></td>
-    </tr>
-   
-</c:forEach>
- <!--   <tr>  
+	<table>
+		<tr style="text-align: center">
+			<td colspan="6" align="center"><b><c:out
+						value=" LDAP Configuration :  ${sessionScope.ldapConfigModel.podname } " /></b></td>
+		</tr>
+
+		<tr>
+			<th>Container Name</th>
+			<th>port</th>
+			<th>Domain Name</th>
+			<th>Config User Password</th>
+			<th>Admin User Password</th>
+
+
+		</tr>
+
+		<tr>
+			<td><c:out
+					value="${sessionScope.ldapConfigModel.containerName }" /></td>
+			<td><c:out value="${sessionScope.ldapConfigModel.port }" /></td>
+			<td><c:out value="${sessionScope.ldapConfigModel.domain }" /></td>
+			<td><c:out value="${sessionScope.ldapConfigModel.confpwd }" />
+			</td>
+			<td><c:out value="${sessionScope.ldapConfigModel.adminpwd }" />
+			</td>
+
+		</tr>
+
+	</table>
+
+	<table>
+		<tr style="text-align: center">
+			<td colspan="4" align="center"><b><c:out
+						value=" DB Configuration :  ${sessionScope.dbConfigModel.hostname } " /></b></td>
+
+		</tr>
+
+		<tr>
+			<th>Container Name</th>
+			<th>DB Name</th>
+			<th>Instance</th>
+			<th>Port</th>
+
+		</tr>
+
+		<tr>
+			<td><c:out value="${sessionScope.dbConfigModel.containerName }" />
+			</td>
+			<td><c:out value="${sessionScope.dbConfigModel.dbName }" /></td>
+			<td><c:out value="${sessionScope.dbConfigModel.userName }" /></td>
+			<td><c:out value="${sessionScope.dbConfigModel.adminpwd }" /></td>
+
+		</tr>
+
+	</table>
+
+	<table>
+		<tr style="text-align: center">
+			<td colspan="5" align="center"><b><c:out
+						value=" RP Configuration  :" /></b></td>
+
+		</tr>
+
+		<tr>
+			<th>AppName</th>
+			<th>Servname</th>
+			<th>Hostname</th>
+			<th>Port Num</th>
+			<th>Instance Name</th>
+		</tr>
+
+		<c:forEach var="item" items="${sessionScope.rpListConf.rpConf}"
+			varStatus="status">
+			<tr>
+				<td><c:out value="${item.appName }" /></td>
+				<td><c:out value="${item.hostname }" /></td>
+				<td><c:out value="${item.servname }" /></td>
+				<td><c:out value="${item.port }" /></td>
+				<td><c:out value="${item.instName }" /></td>
+			</tr>
+
+		</c:forEach>
+		<!--   <tr>  
     <td><c:out value="${sessionScope.iviaconf.iviaophostname }" /> </td>
     <td><c:out value="${sessionScope.iviaconf.iviaopinstance }" /> </td> 
   </tr>  
@@ -248,17 +281,19 @@
     <td><c:out value="${sessionScope.iviaconf.dscinstance }" /> </td> 
   </tr>
  -->
-  </table>
-  <br><br>
-  				<form:form method="GET" action="/iviacontainerdep/getConfig"
-					commandName="rplistconf">
-<div id="submitbottonid">
-			<input type="submit" id="submit_button"  class="button-click" value="Download" />
+	</table>
+	<br>
+	<br>
+	<form:form method="GET" action="/iviacontainerdep/getConfig"
+		commandName="rplistconf">
+		<div id="submitbottonid">
+			<input type="submit" id="submit_button" class="button-click"
+				value="Download" />
 		</div>
-				</form:form>
-		
-<br>
-	
+	</form:form>
+
+	<br>
+
 
 </body>
 </html>
