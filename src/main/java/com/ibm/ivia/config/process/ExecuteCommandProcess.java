@@ -1,11 +1,16 @@
 package com.ibm.ivia.config.process;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.function.Consumer;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,7 +85,7 @@ public  String execCmd(String cmd) {
 
 	if (isWindows) {
 
-		homeDirectory="cmd.exe /c "+cmd;
+		homeDirectory="cmd.exe "+cmd;
 		
 	} else {
 		homeDirectory=""+cmd;
@@ -98,5 +103,27 @@ public  String execCmd(String cmd) {
     log.info("OutPut:>                     : "+result);
 
     return result;
+}
+
+
+public  void unzip(String zipFile, String destFolder) throws IOException {
+    try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFile))) {
+        ZipEntry entry;
+        byte[] buffer = new byte[1024];
+        while ((entry = zis.getNextEntry()) != null) {
+            File newFile = new File(destFolder + File.separator + entry.getName());
+            if (entry.isDirectory()) {
+                newFile.mkdirs();
+            } else {
+                new File(newFile.getParent()).mkdirs();
+                try (FileOutputStream fos = new FileOutputStream(newFile)) {
+                    int length;
+                    while ((length = zis.read(buffer)) > 0) {
+                        fos.write(buffer, 0, length);
+                    }
+                }
+            }
+        }
+    }
 }
 }

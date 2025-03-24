@@ -38,9 +38,10 @@ import com.ibm.ivia.config.user.UserValidator;
 public class RequestHandler {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
-	private Validator validator = new UserValidator();
-	private ConfigValidator confvalidator = new ConfigValidator();
+	//private Validator validator = new UserValidator();
+	//private ConfigValidator confvalidator = new ConfigValidator();
 	private static final int BUFFER_SIZE = 4096;
+	private static String TIME = "";
 
 	@Value("${iviaapp.docker.zipLPath}")
 	private String dockerZipPath;
@@ -52,6 +53,12 @@ public class RequestHandler {
 	
 	@Value("${iviaapp.docker.output}")
 	private String dockeroutput;
+	
+	@Value("${iviaapp.deploy}")
+	private String iviadeploy;
+	
+	
+	
 	@Autowired
 	FileProcessing fileupdate;
 	@Autowired
@@ -317,10 +324,8 @@ public class RequestHandler {
 	@RequestMapping(value="/executeConfig", method=RequestMethod.GET)
 	public void executeConfig(Model m,HttpSession sesion,HttpServletRequest request,            HttpServletResponse response) throws Exception {
 		log.info("executeConfig commonconfpage()");
-		
-		
-		List<String> commands=new  ArrayList<String>(); 
-		
+		executeCommandProcess.unzip(dockeroutput+"iviaDeployment_"+TIME+".zip",iviadeploy);
+		List<String> commands=new  ArrayList<String>(); 		
 		//commands.add(" start --driver=docker --network minikube");
 		
 		commands.add(dockeroutput+"/common/create-ldap-and-postgres-isvaop-keys.sh");
@@ -347,7 +352,7 @@ public class RequestHandler {
 		log.info("Update env File commonconfpage()");
 		//fileupdate.updateEnvFileData(sesion);		
 		Path sourcepath = (Path)Paths.get(dockeroutput);
-		String dockerZipName=dockeroutput+"iviaDeployment"+getCurrentTime()+".zip";
+		String dockerZipName=dockeroutput+"iviaDeployment_"+TIME+".zip";
 		Path destpath = (Path)Paths.get(dockerZipName);
 		fileupdate.zipFolder(sourcepath,destpath);	
         File downloadFile = new File(dockerZipName);
@@ -387,13 +392,12 @@ public class RequestHandler {
 	
 	}
 	
-	private String getCurrentTime() {
+	private void getCurrentTime() {
 		SimpleDateFormat ft     = new SimpleDateFormat("dd-MM-yyyy_hh_mm_ss"); 
 
-    String str = ft.format(new Date()); 
+     TIME = ft.format(new Date()); 
 
     // Printing the formatted date 
-    System.out.println("Formatted Date : " + str);
-    return str;
+    System.out.println("Formatted Date : " + TIME);
 	}
 }
