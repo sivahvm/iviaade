@@ -1,0 +1,104 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: __aname__
+  labels:
+    app: __aname__
+spec:
+  selector:
+    matchLabels:
+      app: __aname__
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: __aname__
+    spec:
+      volumes:
+        - name: __confvname__
+          emptyDir: {}
+        - name: __aname__-logs
+          emptyDir: {}
+      containers:
+        - name: __cname__
+          image:  __REP__:__V__
+          ports:
+            - containerPort: 9443
+          volumeMounts:
+            - mountPath: /var/shared
+              name: __confvname__
+            - mountPath: /var/application.logs
+              name: __cname__-logs
+          env:
+            - name: INSTANCE
+              value: __instance__
+            - name: CONTAINER_TIMEZONE
+              value: __TIME__
+            - name: CONFIG_SERVICE_URL
+              value: https://__confsname__:__confvport__/shared_volume
+            - name: CONFIG_SERVICE_USER_NAME
+              value: cfgsvc
+            - name: CONFIG_SERVICE_USER_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: configreader
+                  key: cfgsvcpw
+          livenessProbe:
+            exec:
+              command:
+              - /sbin/health_check.sh
+              - livenessProbe
+            periodSeconds: 10
+            failureThreshold: 6
+            timeoutSeconds: 2
+          readinessProbe:
+            exec:
+              command:
+              - /sbin/health_check.sh
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 2
+      imagePullSecrets:
+        - name: dockerlogin
+---
+# for external service access, see https://console.bluemix.net/docs/containers/cs_apps.html#cs_apps_public_nodeport
+apiVersion: v1
+kind: Service
+metadata:
+  name: __sname__
+spec:
+  type: NodePort
+  sessionAffinity: ClientIP
+  ports:
+    - port: 9443
+      name: __sname__
+      protocol: TCP
+      nodePort: __port__
+  selector:
+    app: __aname__
+---
+
+ apiVersion: networking.k8s.io/v1
+ kind: Ingress
+ metadata:
+   name: __aname__
+   annotations:
+     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+     nginx.ingress.kubernetes.io/affinity: "cookie"
+ spec:
+  tls:
+  - hosts:
+    - __hostname__
+  rules:
+  - host: __hostname__
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: __aname__
+            port:
+              number: 9443
+---

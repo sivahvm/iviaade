@@ -1,0 +1,76 @@
+---    
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: __aname__
+  labels:
+    app: __aname__
+  annotations:
+    version: "2.0"
+spec:
+  selector:
+    matchLabels:
+      app: __aname__
+
+  replicas: 1
+
+  template: 
+    metadata:
+      labels:
+        app: __aname__
+
+    spec:
+      volumes:
+        
+        - name: __vname__
+          configMap:
+            name: __vname__
+
+      containers:
+        - name: __cname__
+        
+          # The fully qualified name of the IVIAOP image.
+          image: __REP__:__V__
+          imagePullPolicy: Always
+          # Mount our volumes to the expected configuration directory
+          volumeMounts:
+            - name: __vname__
+              mountPath: /var/isvaop/config
+
+          readinessProbe:
+            httpGet:
+              path: /healthcheck/ready
+              port: __port__
+              scheme: HTTPS
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 2
+
+          livenessProbe:
+            httpGet:
+              path: /healthcheck/alive
+              port: __port__
+              scheme: HTTPS
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: __sname__
+  labels:
+    app: __aname__
+spec:
+  ports:
+    - port: __port__
+      name: __sname__
+      nodePort: 31443
+  selector:
+    app: __aname__
+  type: NodePort

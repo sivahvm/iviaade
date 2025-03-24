@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: __aname__
+  labels:
+    app: __aname__
+spec:
+  selector:
+    matchLabels:
+      app: __aname__
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: __aname__
+    spec:
+      volumes:
+        - name: __confvname__
+          emptyDir: {}
+        - name: __aname__-logs
+          emptyDir: {}
+      containers:
+        - name: __cname__
+          image:  __REP__:__V__
+          ports:
+            - containerPort: 9443
+          volumeMounts:
+            - mountPath: /var/shared
+              name: __confvname__
+            - mountPath: /var/application.logs
+              name: __aname__-logs
+          env:
+            - name: CONTAINER_TIMEZONE
+              value: Europe/London
+            - name: CONFIG_SERVICE_URL
+              value: https://__confsname__:__confvport__/shared_volume
+            - name: CONFIG_SERVICE_USER_NAME
+              value: cfgsvc
+            - name: CONFIG_SERVICE_USER_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: configreader
+                  key: cfgsvcpw
+          livenessProbe:
+            exec:
+              command:
+              - /sbin/health_check.sh
+              - livenessProbe
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 6
+          readinessProbe:
+            httpGet:
+              scheme: HTTPS
+              port: __port__
+              path: /sps/static/ibm-logo.png
+            periodSeconds: 10
+            failureThreshold: 2
+            timeoutSeconds: 2
+          startupProbe:
+            exec:
+              command:
+              - /sbin/health_check.sh
+            failureThreshold: 30
+            periodSeconds: 10
+            timeoutSeconds: 2
+      imagePullSecrets:
+        - name: dockerlogin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: __sname__
+spec:
+  ports:
+    - port: __port__
+      name: __sname__
+      protocol: TCP
+  selector:
+    app: __aname__

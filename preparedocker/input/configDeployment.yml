@@ -1,0 +1,94 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: __confvname__
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: __MEM__M
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: __aname__
+  labels:
+    app: __aname__
+spec:
+  selector:
+    matchLabels:
+      app: __aname__
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: __aname__
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser:    6000
+      volumes:
+        - name: __confvname__
+          persistentVolumeClaim:
+            claimName: __confvname__
+        - name: __confvname__-logs
+          emptyDir: {}
+      containers:
+        - name: __cname__
+          image: __REP__:__V__
+          volumeMounts:
+            - mountPath: /var/shared
+              name: __confvname__
+            - mountPath: /var/application.logs
+              name: __aname__-logs
+          env:
+            - name: CONTAINER_TIMEZONE
+              value: __TIME__
+            - name: ADMIN_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: iviaadmin
+                  key: adminpw
+          livenessProbe:
+            exec:
+              command:
+              - /sbin/health_check.sh
+              - livenessProbe
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 6
+          readinessProbe:
+            httpGet:
+              scheme: HTTPS
+              port: __port__
+              path: /core/login
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 2
+          startupProbe:
+            exec:
+              command:
+              - /sbin/health_check.sh
+            failureThreshold: 30
+            periodSeconds: 10
+            timeoutSeconds: 2
+#          command: [ "/sbin/bootstrap.sh" ]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: __confsname__
+spec:
+# To make the LMI externally visible, make it a nodePort
+#  type: NodePort
+  ports:
+    - port: __confvport__
+      name: __confsname__
+      protocol: TCP
+# make this one statically allocated
+#      nodePort: 30442
+  selector:
+    app: __aname__
+    

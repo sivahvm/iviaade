@@ -1,0 +1,81 @@
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: __aname__
+  labels:
+    app: __aname__
+spec:
+  selector:
+    matchLabels:
+      app: __aname__
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: __aname__
+    spec:
+      volumes:
+        - name: __confvname__
+          emptyDir: {}
+        - name: __aname__-logs
+          emptyDir: {}
+      containers:
+        - name: __cname__
+          image: __REP__:__V__
+          ports:
+            - containerPort: 9443
+            - containerPort: 9444
+          volumeMounts:
+            - mountPath: /var/shared
+              name: __confvname__
+            - mountPath: /var/application.logs
+              name: __aname__-logs
+          env:
+            - name: INSTANCE
+              value: '1'
+            - name: CONTAINER_TIMEZONE
+              value: Europe/London
+            - name: CONFIG_SERVICE_URL
+              value: https://__confsname__:__confvport__/shared_volume
+            - name: CONFIG_SERVICE_USER_NAME
+              value: cfgsvc
+            - name: CONFIG_SERVICE_USER_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: configreader
+                  key: cfgsvcpw
+          livenessProbe:
+            exec:
+              command:
+              - /sbin/health_check.sh
+              - livenessProbe
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 6
+          readinessProbe:
+            exec:
+              command:
+              - /sbin/health_check.sh
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 2
+      imagePullSecrets:
+        - name: dockerlogin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: __sname__
+spec:
+  ports:
+    - port: 9443
+      name: __sname__-svc
+      protocol: TCP
+    - port: 9444
+      name: __sname__-rep
+      protocol: TCP
+  selector:
+    app: __aname__
+---

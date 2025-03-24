@@ -1,0 +1,87 @@
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: __vname__
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: __MEM__M
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: __aname__
+  labels:
+    app: __aname__
+spec:
+  selector:
+    matchLabels:
+      app: __aname__
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: __aname__
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 70
+        fsGroup: 0
+      volumes:
+        - name: __vname__
+          persistentVolumeClaim:
+            claimName: __vname__
+        - name: postgresql-keys
+          secret:
+            secretName: postgresql-keys
+      containers:
+        - name: __cname__
+          image: __REP__:__V__
+          livenessProbe:
+            tcpSocket:
+              port: 5432
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            tcpSocket:
+              port: 5432
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: __uname__
+            - name: POSTGRES_PASSWORD
+              value: __admpwd__
+            - name: POSTGRES_DB
+              value: __dbname__
+            - name: POSTGRES_SSL_KEYDB
+              value: /var/local/server.pem
+            - name: PGDATA
+              value: /var/lib/postgresql/data/db-files/
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgresqldata
+            - mountPath: /var/local
+              name: postgresql-keys
+# useful for debugging startup issues - can run bash, then exec to the container and poke around
+#          command: [ "/bin/bash"]
+#          args: [ "-c", "while /bin/true ; do sleep 5; done" ]
+---
+# for external service access, see https://console.bluemix.net/docs/containers/cs_apps.html#cs_apps_public_nodeport
+apiVersion: v1
+kind: Service
+metadata:
+  name: __sname__
+spec:
+  ports:
+    - port: 5432
+      name: __sname__
+      protocol: TCP
+  selector:
+    app: __aname__

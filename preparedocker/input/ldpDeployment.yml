@@ -1,0 +1,115 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: __ldaplib__
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: __MEM__M
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: __vname__
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: __MEM__M
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: __ldapsecauthority__
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: __MEM__M
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: __aname__
+  labels:
+    app: __aname__
+spec:
+  selector:
+    matchLabels:
+      app: __aname__
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: __aname__
+    spec:
+      volumes:
+        - name: __ldaplib__
+          persistentVolumeClaim:
+            claimName: __ldaplib__
+        - name: __vname__
+          persistentVolumeClaim:
+            claimName: __vname__
+        - name: __ldapsecauthority__
+          persistentVolumeClaim:
+            claimName: __ldapsecauthority__
+        - name: openldap-keys
+          secret:
+            secretName: openldap-keys
+      containers:
+        - name: __cname__
+          image: icr.io/isva/verify-access-openldap:10.0.6.0
+          livenessProbe:
+            tcpSocket:
+              port: 636
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            tcpSocket:
+              port: 636
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          ports:
+            - containerPort: 636
+          env:
+            - name: LDAP_DOMAIN
+              value: __domain__
+            - name: LDAP_ADMIN_PASSWORD
+              value: __admpwd__
+            - name: LDAP_CONFIG_PASSWORD
+              value: __configpwd__
+          volumeMounts:
+            - mountPath: /var/lib/ldap
+              name: __ldaplib__
+            - mountPath: /etc/ldap/slapd.d
+              name: __vname__
+            - mountPath: /var/lib/ldap.secAuthority
+              name: __ldapsecauthority__
+            - mountPath: /container/service/slapd/assets/certs
+              name: openldap-keys
+# This line is needed when running on Kubernetes 1.9.4 or above
+          args: [ "--copy-service"]
+# useful for debugging startup issues - can run bash, then exec to the container and poke around
+#          command: [ "/bin/bash"]
+#          args: [ "-c", "while /bin/true ; do sleep 5; done" ]
+# Just this line to get debug output from openldap startup
+#          args: [ "--loglevel" , "trace","--copy-service"]
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: __sname__
+  labels:
+    app: __sname__
+spec:
+  ports:
+    - port: __port__
+      name: ldaps
+      protocol: TCP
+  selector:
+    app: __aname__
