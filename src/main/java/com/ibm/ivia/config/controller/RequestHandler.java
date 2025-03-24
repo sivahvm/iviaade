@@ -342,8 +342,8 @@ public class RequestHandler {
 		log.info("Update env File commonconfpage()");
 		//fileupdate.updateEnvFileData(sesion);		
 		Path sourcepath = (Path)Paths.get(dockeroutput);
-		String dockerZipName=dockeroutput+"iviaDeployment"+getCurrentTime()+".zip";
-		Path destpath = (Path)Paths.get(dockerZipName);
+		String dockerZipName=dockerZipPath+"iviaDeployment"+getCurrentTime()+".zip";
+		Path destpath = (Path)Paths.get(dockerZipPath);
 		fileupdate.zipFolder(sourcepath,destpath);	
         File downloadFile = new File(dockerZipName);
         FileInputStream inputStream = new FileInputStream(downloadFile);
