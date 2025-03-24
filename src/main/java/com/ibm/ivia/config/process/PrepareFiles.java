@@ -5,6 +5,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -106,8 +111,11 @@ public class PrepareFiles {
 			list.add("dsc");
 			list.add("iviaop");
 
-			
-			BufferedWriter out = new BufferedWriter( new FileWriter(filename));
+	        Path path = Paths.get(filename);
+
+			//BufferedWriter out = new BufferedWriter( new FileWriter(filename));
+	       BufferedWriter out = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+
 			for (String key : list) {
 				if(outputContent.containsKey(key)) {
 
@@ -130,7 +138,11 @@ public class PrepareFiles {
 	
 
 			
-			BufferedWriter out = new BufferedWriter( new FileWriter(filename));
+			//BufferedWriter out = new BufferedWriter( new FileWriter(filename));
+	        Path path = Paths.get(filename);
+
+		       BufferedWriter out = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+
 			for (String key : dep) {
 					out.write("kubectl delete deploy "+key);
 					out.newLine();
