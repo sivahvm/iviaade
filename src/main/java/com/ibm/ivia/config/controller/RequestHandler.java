@@ -322,7 +322,7 @@ public class RequestHandler {
 		List<String> commands=new  ArrayList<String>(); 
 		
 		//commands.add(" start --driver=docker --network minikube");
-		commands.add(dockeroutput+"common/create-ldap-and-postgres-isvaop-keys.sh");
+		commands.add(dockeroutput+"/common/create-ldap-and-postgres-isvaop-keys.sh");
 		commands.add(minikubeoutput+"create-secrets.sh");
 		commands.add(minikubeoutput+"ivia-minikube.yaml");		
 		for (String string : commands) {
