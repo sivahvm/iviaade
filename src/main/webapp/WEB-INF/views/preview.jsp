@@ -48,12 +48,11 @@
 
 	<div align="right">
 		</b></i> <i style="text-align: center; padding-left: 10px"> <b> <a
-				class="linnk_button" href='<c:url value="/executeConfig"/>'>Gen Config</a>
+				class="linnk_button" href='<c:url value="/genConfig"/>'>Gen Config</a>
 		</b></i>
-		<i style="text-align: center; padding-left: 10px"> <b> <a
-				class="linnk_button" href='<c:url value="/clean"/>'>Clean</a>
+		
 		</b></i> <i style="text-align: center; padding-left: 10px"> <b> <a
-				class="linnk_button" href='<c:url value="/getConfig"/>'>Deploy</a>
+				class="linnk_button" href='<c:url value="/executeConfig"/>'>Deploy</a>
 
 	</div>
 

@@ -330,7 +330,7 @@ public class RequestHandler {
 		List<String> commands=new  ArrayList<String>(); 		
 		//commands.add(" start --driver=docker --network minikube");
 		commands.add("chmod 777 ");
-		commands.add("");
+		commands.add(minikubeoutput+"clean.sh");
 		commands.add(dockeroutput+"/common/create-ldap-and-postgres-isvaop-keys.sh");
 		commands.add(minikubeoutput+"create-secrets.sh");
 		commands.add("kubectl create -f "+minikubeoutput+"ivia-minikube.yaml");	
@@ -343,18 +343,15 @@ public class RequestHandler {
 		}
 	}
 	
-	@RequestMapping(value="/clean", method=RequestMethod.GET)
-	public void cleanConfig(Model m,HttpSession sesion,HttpServletRequest request,            HttpServletResponse response) throws Exception {
-		log.info("executeConfig commonconfpage()");
-		executeCommandProcess.unzip(dockeroutput+"iviaDeployment_"+TIME+".zip",iviadeploy);
-		List<String> commands=new  ArrayList<String>(); 		
-		//commands.add(" start --driver=docker --network minikube");
-		
-		commands.add(minikubeoutput+"clean.sh");
 	
-		for (String string : commands) {
-			executeCommandProcess.execCmd(string);
-		}
+	
+	@RequestMapping(value="/genConfig", method=RequestMethod.GET)
+	public void genConfig(Model m,HttpSession sesion,HttpServletRequest request,            HttpServletResponse response) throws Exception {
+		log.info("gen env File commonconfpage()");
+		String fileName=minikubeoutput+"ivia-minikube.yaml";
+		prepareFiles.writeFileContent(fileName);		
+		prepareFiles.writeFileCleanContent(minikubeoutput+"cleanup.sh",regress);		
+	
 	}
 	
 	@RequestMapping(value="/getConfig", method=RequestMethod.GET)
