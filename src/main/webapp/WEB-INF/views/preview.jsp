@@ -46,9 +46,10 @@
 		</b></i>
 	</div>
 	
-	<div align="left">
-		<i style="text-align: center; padding-left: 10px"> <b> "${message }"
-		</b></i> 
+	<div align="center">
+	<label style="color: #19790a"><b> ${message } </b></label>
+			</div>
+ 
 	</div>
 
 	<div align="right">
