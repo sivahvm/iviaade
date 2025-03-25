@@ -44,8 +44,8 @@
 <form:form method = "GET" action = "/iviacontainerdep/lmiConfig" >
 	
 
-<div align="left" style="padding-left:270px; width: 400%">						
-	<label><h3>Accelerated Deployment Engine is single source for Creating IVIA Container configurations that include image version, services, secure and testing. <br> <br> This pattern will generate container configuration files based on client inputs and it will do base platform testing </h4></label>
+<div align="left" style="padding-left:112px; width: 80%">						
+	<label><h4>Accelerated Deployment Engine is single source for Creating IVIA Container configurations that include image version, services, secure and testing. <br> <br> This pattern will generate container configuration files based on client inputs and it will do base platform testing </h4></label>
 					</div>
 <br><br><br><br>
 

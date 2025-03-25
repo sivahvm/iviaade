@@ -63,7 +63,7 @@
 	background-image: url(/configwebapp/resources/css/line_resize.jpg);
 }
 .logobaner{
-	padding-left: 389px;
+	padding-left: 190px;
 	text-align:center;
 }
 .row::after {
@@ -337,7 +337,7 @@ background-image: linear-gradient(92.88deg, #41babd 9.16%, #489d9b 43.89%, #11a1
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    width: 281px;
+    width: 215px;
     height: 45px;
 }
 
