@@ -355,12 +355,12 @@ public class RequestHandler {
 		//executeCommandProcess.unzip(dockeroutput+"iviaDeployment_"+TIME+".zip",iviadeploy);
 		List<String> commands=new  ArrayList<String>(); 		
 		//commands.add(" start --driver=docker --network minikube");
-		commands.add("chmod 777 ");
-		commands.add(minikubeoutput+"cleanup.sh");
-	
-		for (String string : commands) {
-			executeCommandProcess.execCmd(string);
-		}
+		
+		log.info("gen env File commonconfpage()");
+		String fileName=minikubeoutput+"ivia-minikube.yaml";
+		prepareFiles.writeFileContent(fileName);		
+		prepareFiles.writeFileCleanContent(minikubeoutput+"cleanup.sh",regress);	
+		
 		HttpSession session = request.getSession();
 		session.setAttribute("message", "IVIA Container Configuration file Generation is Success");
 
@@ -369,11 +369,16 @@ public class RequestHandler {
 	
 	@RequestMapping(value="/clean", method=RequestMethod.GET)
 	public String cleanConfig(Model m,HttpSession sesion,HttpServletRequest request,            HttpServletResponse response) throws Exception {
-		log.info("gen env File commonconfpage()");
-		String fileName=minikubeoutput+"ivia-minikube.yaml";
-		prepareFiles.writeFileContent(fileName);		
-		prepareFiles.writeFileCleanContent(minikubeoutput+"cleanup.sh",regress);	
+	
 		
+		List<String> commands=new  ArrayList<String>(); 		
+
+		commands.add("chmod 777 ");
+		commands.add(minikubeoutput+"cleanup.sh");
+	
+		for (String string : commands) {
+			executeCommandProcess.execCmd(string);
+		}		
 		HttpSession session = request.getSession();
 		session.setAttribute("message", "IVIA Container Clean operation Success");
 		
