@@ -45,6 +45,11 @@
 				class="linnk_button" href='<c:url value="/index"/>'>Home</a>
 		</b></i>
 	</div>
+	
+	<div align="left">
+		<i style="text-align: center; padding-left: 10px"> <b> "${message }"
+		</b></i> 
+	</div>
 
 	<div align="right">
 		</b></i> <i style="text-align: center; padding-left: 10px"> <b> <a

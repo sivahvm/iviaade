@@ -341,6 +341,9 @@ public class RequestHandler {
 		for (String string : commands) {
 			executeCommandProcess.execCmd(string);
 		}
+		HttpSession session = request.getSession();
+		session.setAttribute("message", "IVIA Container Deployment Success");
+
 		return "preview";
 	}
 	
@@ -358,6 +361,9 @@ public class RequestHandler {
 		for (String string : commands) {
 			executeCommandProcess.execCmd(string);
 		}
+		HttpSession session = request.getSession();
+		session.setAttribute("message", "IVIA Container Configuration file Generation is Success");
+
 		return "preview";
 	}
 	
@@ -366,7 +372,11 @@ public class RequestHandler {
 		log.info("gen env File commonconfpage()");
 		String fileName=minikubeoutput+"ivia-minikube.yaml";
 		prepareFiles.writeFileContent(fileName);		
-		prepareFiles.writeFileCleanContent(minikubeoutput+"cleanup.sh",regress);		
+		prepareFiles.writeFileCleanContent(minikubeoutput+"cleanup.sh",regress);	
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("message", "IVIA Container Clean operation Success");
+		
 		return "preview";
 	}
 	@RequestMapping(value="/getConfig", method=RequestMethod.GET)
@@ -418,6 +428,10 @@ public class RequestHandler {
  
         inputStream.close();
         outStream.close();
+        
+		HttpSession session = request.getSession();
+		session.setAttribute("message", "IVIA Container configration generated and successfully Downloaded ");
+		
         return "preview";
 	
 	}
