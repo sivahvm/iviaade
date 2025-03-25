@@ -324,7 +324,7 @@ public class RequestHandler {
 	}
 	
 	@RequestMapping(value="/executeConfig", method=RequestMethod.GET)
-	public void executeConfig(Model m,HttpSession sesion,HttpServletRequest request,            HttpServletResponse response) throws Exception {
+	public String executeConfig(Model m,HttpSession sesion,HttpServletRequest request,            HttpServletResponse response) throws Exception {
 		log.info("executeConfig commonconfpage()");
 		//executeCommandProcess.unzip(dockeroutput+"iviaDeployment_"+TIME+".zip",iviadeploy);
 		List<String> commands=new  ArrayList<String>(); 		
@@ -341,21 +341,36 @@ public class RequestHandler {
 		for (String string : commands) {
 			executeCommandProcess.execCmd(string);
 		}
+		return "preview";
 	}
 	
 	
 	
 	@RequestMapping(value="/genConfig", method=RequestMethod.GET)
-	public void genConfig(Model m,HttpSession sesion,HttpServletRequest request,            HttpServletResponse response) throws Exception {
+	public String genConfig(Model m,HttpSession sesion,HttpServletRequest request,            HttpServletResponse response) throws Exception {
+		log.info("executeConfig commonconfpage()");
+		//executeCommandProcess.unzip(dockeroutput+"iviaDeployment_"+TIME+".zip",iviadeploy);
+		List<String> commands=new  ArrayList<String>(); 		
+		//commands.add(" start --driver=docker --network minikube");
+		commands.add("chmod 777 ");
+		commands.add(minikubeoutput+"clean.sh");
+	
+		for (String string : commands) {
+			executeCommandProcess.execCmd(string);
+		}
+		return "preview";
+	}
+	
+	@RequestMapping(value="/clean", method=RequestMethod.GET)
+	public String cleanConfig(Model m,HttpSession sesion,HttpServletRequest request,            HttpServletResponse response) throws Exception {
 		log.info("gen env File commonconfpage()");
 		String fileName=minikubeoutput+"ivia-minikube.yaml";
 		prepareFiles.writeFileContent(fileName);		
 		prepareFiles.writeFileCleanContent(minikubeoutput+"cleanup.sh",regress);		
-	
+		return "preview";
 	}
-	
 	@RequestMapping(value="/getConfig", method=RequestMethod.GET)
-	public void createConfig(Model m,HttpSession sesion,HttpServletRequest request,            HttpServletResponse response) throws Exception {
+	public String createConfig(Model m,HttpSession sesion,HttpServletRequest request,            HttpServletResponse response) throws Exception {
 		log.info("Update env File commonconfpage()");
 		String fileName=minikubeoutput+"ivia-minikube.yaml";
 		prepareFiles.writeFileContent(fileName);
@@ -403,6 +418,7 @@ public class RequestHandler {
  
         inputStream.close();
         outStream.close();
+        return "preview";
 	
 	}
 	

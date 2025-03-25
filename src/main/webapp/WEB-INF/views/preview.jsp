@@ -53,6 +53,9 @@
 		
 		</b></i> <i style="text-align: center; padding-left: 10px"> <b> <a
 				class="linnk_button" href='<c:url value="/executeConfig"/>'>Deploy</a>
+				
+</b></i> <i style="text-align: center; padding-left: 10px"> <b> <a
+				class="linnk_button" href='<c:url value="/clean"/>'>Clean</a>
 
 	</div>
 
