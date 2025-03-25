@@ -330,7 +330,7 @@ public class RequestHandler {
 		List<String> commands=new  ArrayList<String>(); 		
 		//commands.add(" start --driver=docker --network minikube");
 		commands.add("chmod 777 ");
-		commands.add(minikubeoutput+"clean.sh");
+		commands.add(minikubeoutput+"cleanup.sh");
 		commands.add(dockeroutput+"/common/create-ldap-and-postgres-isvaop-keys.sh");
 		commands.add(minikubeoutput+"create-secrets.sh");
 		commands.add("kubectl create -f "+minikubeoutput+"ivia-minikube.yaml");	
@@ -353,7 +353,7 @@ public class RequestHandler {
 		List<String> commands=new  ArrayList<String>(); 		
 		//commands.add(" start --driver=docker --network minikube");
 		commands.add("chmod 777 ");
-		commands.add(minikubeoutput+"clean.sh");
+		commands.add(minikubeoutput+"cleanup.sh");
 	
 		for (String string : commands) {
 			executeCommandProcess.execCmd(string);
